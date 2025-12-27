@@ -1,0 +1,2460 @@
+:root {
+  /* ===== COLOR VARIABLES ===== */
+  --color-env: #FFB7C5;
+  --color-env2: #ff9aad;
+  --color-flap: #ff8da1;
+  --color-bg: #ed7fca;
+  --color-heart: #ff85a2;
+  --color-sparkle: #fff;
+  --wax-red: #c04040;
+  
+  /* ===== SPACING SCALE (BASE: 0.25rem) ===== */
+  --sp-1: 0.25rem;    /* 4px */
+  --sp-2: 0.5rem;     /* 8px */
+  --sp-3: 0.75rem;    /* 12px */
+  --sp-4: 1rem;       /* 16px - BASE */
+  --sp-5: 1.25rem;    /* 20px */
+  --sp-6: 1.5rem;     /* 24px */
+  --sp-8: 2rem;       /* 32px */
+  --sp-10: 2.5rem;    /* 40px */
+  --sp-12: 3rem;      /* 48px */
+  
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 0.375rem;    /* 6px */
+  --radius-md: 1.25rem;     /* 20px */
+  --radius-lg: 1.875rem;    /* 30px */
+  --radius-full: 50%;
+  
+  /* ===== FONT FAMILIES ===== */
+  --font-serif: "Sriracha", serif;
+  --font-handlee: "Handlee", cursive;
+  --font-patrick: "Patrick Hand", cursive;
+  --font-itim: "Itim", cursive;
+  --font-quicksand: "Quicksand", sans-serif;
+  --font-dancing: "Dancing Script", sans-serif;
+  --font-satisfy: "Satisfy", cursive;
+  
+  /* ===== ANIMATION DURATIONS (responsive, set per breakpoint) ===== */
+  --anim-fast: 0.3s;
+  --anim-normal: 0.6s;
+  --anim-slow: 1s;
+  --anim-heart-float: 4s;
+  --anim-sparkle: 3s;
+  
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 0.4375rem 1.5625rem rgba(0, 0, 0, 0.2);
+  --shadow-light: rgba(255, 255, 255, 0.3) 0px 7px 29px 0px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+html {
+  font-size: 16px;  /* Base 16px - scales responsively per breakpoint */
+}
+
+body {
+  background: black;
+  font-family: var(--font-serif);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+#bodyblur {
+  opacity: 0.4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all var(--anim-slow) ease;
+}
+
+#sthisblur {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#wallpaper {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(2);
+  transition: all 1.3s ease;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 1);
+  z-index: 100;  /* High level for initial overlay */
+  padding: var(--sp-4);
+  box-sizing: border-box;
+}
+
+.cover {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover p {
+  font-size: 1.2em;  /* Relative to html font-size */
+  font-weight: 700;
+  margin: 0;
+}
+
+.lovein {
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s ease;
+}
+
+.lovein svg {
+  width: 5rem;
+  height: 5rem;
+  fill: #fefefe;
+}
+
+.awalan {
+  margin-top: var(--sp-5);
+  max-width: 90%;
+  width: auto;
+  min-height: var(--sp-5);
+  padding: var(--sp-2);
+  font-size: 0.9em;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border: 0.0625rem solid #fff;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.awalan svg {
+  margin-right: var(--sp-4);
+  width: 1.5em;
+  height: 1.5em;
+  stroke: white;
+}
+
+#envelope {
+  position: relative;
+  width: 10rem;
+  height: 6.875rem;
+  border-bottom-left-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+  margin: 0 auto;
+  top: 10rem;
+  background-color: var(--color-flap);
+  box-shadow: var(--shadow-md);
+}
+
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.flap {
+  border-left: 5rem solid transparent;
+  border-right: 5rem solid transparent;
+  border-bottom: 3.4375rem solid transparent;
+  border-top: 3.4375rem solid var(--color-flap);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.pocket {
+  border-left: 5rem solid var(--color-env);
+  border-right: 5rem solid var(--color-env);
+  border-bottom: 3.4375rem solid var(--color-env2);
+  border-top: 3.4375rem solid transparent;
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.letter {
+  position: relative;
+  background-color: #e0d9dd;
+  width: 90%;
+  margin: 0 auto;
+  height: 95%;
+  top: 5%;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 1.625rem rgba(0, 0, 0, .08);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.letter:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 1.5625rem, rgba(255, 231, 236, .7) 55%, rgba(255, 231, 236, 1) 100%);
+}
+
+.message {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-handlee);
+  color: #d46a84;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.message p {
+  margin: var(--sp-2) 0;
+  font-size: 1.2em;
+  text-shadow: var(--shadow-sm);
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.625rem);
+  }
+}
+
+.envlope-wrapper {
+  height: 13.125rem;
+  margin-top: 3.125rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+  transition: transform .4s ease, z-index .6s;
+  z-index: 1;
+}
+
+.close .flap {
+  transform: rotateX(0deg);
+  transition: transform .4s .6s ease, z-index 1s;
+  z-index: 5;
+}
+
+.close .letter {
+  transform: translateY(0);
+  transition: transform .4s ease, z-index 1s;
+  z-index: 1;
+}
+
+.open .letter {
+  transform: translateY(-3.4375rem) rotate(-2deg);
+  transition: transform .4s .2s ease, z-index .6s;
+  z-index: 2;
+}
+
+.letter-corner {
+  position: absolute;
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 0.0625rem solid #ffd1dc;
+  border-radius: 0.15625rem;
+  z-index: 3;
+  /* Scaling proporsional dilakukan di media queries */
+}
+
+.corner-tl {
+  top: 0.3125rem;
+  left: 0.3125rem;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-br {
+  bottom: 0.3125rem;
+  right: 0.3125rem;
+  border-left: none;
+  border-top: none;
+}
+
+.hearts,
+.sparkles {
+  position: absolute;
+  top: 3.4375rem;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.heart,
+.sparkle {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  left: 0.78125rem;
+  top: 0;
+  width: 0.78125rem;
+  height: 1.5625rem;
+  background: var(--color-heart);
+  border-radius: 0.78125rem 0.78125rem 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.sparkle {
+  width: 0.25rem;
+  height: 0.25rem;
+  background: var(--color-sparkle);
+  border-radius: 50%;
+  animation: sparkleTwinkle 1s infinite;
+}
+
+.close .heart,
+.close .sparkle {
+  opacity: 0;
+  animation: none;
+}
+
+.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  animation: slideUp 4s linear infinite, sideSway 2s ease-in-out infinite alternate;
+}
+
+.a2 {
+  left: 55%;
+  animation: slideUp 5s linear infinite, sideSway 4s ease-in-out infinite alternate;
+}
+
+.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  animation: slideUp 7s linear infinite, sideSway 2s ease-in-out infinite alternate;
+}
+
+.s1 {
+  left: 30%;
+  animation: sparkleUp 3s linear infinite;
+}
+
+.s2 {
+  left: 60%;
+  animation: sparkleUp 4s linear infinite;
+}
+
+.s3 {
+  left: 45%;
+  animation: sparkleUp 5s linear infinite;
+}
+
+@keyframes slideUp {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: -37.5rem;
+  }
+}
+
+@keyframes sideSway {
+  0% {
+    margin-left: 0;
+  }
+
+  50% {
+    margin-left: 3.125rem;
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
+
+@keyframes sparkleUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-31.25rem) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkleTwinkle {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.reset {
+  position: relative;
+  text-align: center;
+  margin-top: var(--sp-10);
+}
+
+.reset button {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  transition: all var(--anim-fast) ease;
+  background-color: var(--color-env2);
+  border: 0.0625rem solid var(--color-env2);
+  border-radius: var(--radius-md);
+  color: white;
+  text-shadow: 0rem var(--sp-1) var(--sp-1) rgba(0, 0, 0, 0.5);
+  padding: var(--sp-2) var(--sp-3);
+  margin: var(--sp-2);
+  font-size: 1em;
+  box-shadow: var(--shadow-md);
+}
+
+.reset button:hover {
+  background-color: var(--color-env);
+  transform: translateY(-0.1875rem) scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.stiker {
+  margin: -var(--sp-10) auto var(--sp-5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0);
+  transition: all 0.75s ease;
+  z-index: 20;  /* Below overlays, above main content */
+}
+
+.stiker img {
+  display: none;
+  width: 5rem;
+  height: 5rem;
+  box-shadow: 0 var(--sp-1) var(--sp-3) rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.7);
+  border: var(--sp-1) solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  padding: var(--sp-2);
+}
+
+#main-stiker {
+  display: flex;
+}
+
+.container {
+  position: relative;
+  display: block;
+  width: 90%;
+  max-width: 40rem;
+  min-height: 5.25rem;
+  max-height: 15.625rem;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: var(--sp-1) solid white;
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  transform: scale(0);
+  margin: auto;
+  padding: var(--sp-4) var(--sp-5);
+  z-index: 30;
+  box-sizing: border-box;
+}
+
+.container h3 {
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+}
+
+.container p {
+  font-size: 1em;
+  color: #fff;
+  text-align: left;
+}
+
+.titleC {
+  font-size: 1.1em !important;  /* em-based for responsiveness */
+  margin-bottom: var(--sp-3);
+  font-family: var(--font-itim);
+}
+
+.messageC {
+  font-family: var(--font-patrick);
+  text-align: center;
+  font-size: 1.2em;
+  color: #fff;
+  margin-top: var(--sp-4);
+}
+
+.continue-button-container {
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-top: var(--sp-8);
+  position: relative;
+  z-index: 35;
+}
+
+.continue-button {
+  display: inline-block;
+  padding: var(--sp-2) var(--sp-5);
+  background-color: rgb(255 255 255 / 20%);
+  color: white;
+  text-decoration: none;
+  border-radius: 100px;
+  font-family: var(--font-handlee);
+  font-size: 1.2em;
+  box-shadow: 0 0.25rem 0.5rem rgb(146 146 146 / 20%);
+  transition: background-color var(--anim-fast) ease;
+  cursor: pointer;
+  border: none;
+}
+
+.continue-button:hover {
+  background-color: #f6f6f6;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
+.fontAlt {
+  font-family: var(--font-satisfy);
+  font-size: 1.3em;  /* em-based */
+  font-weight: 700;
+}
+
+.textBg {
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: var(--sp-1) var(--sp-2);
+  text-shadow: none;
+  color: red;
+}
+
+.opamuncul {
+  position: relative;
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.7s ease;
+}
+
+.opahidden {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.7s ease;
+}
+
+.hidden,
+#linkmp3 {
+  display: none;
+}
+
+.semihidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
+#scontainer {
+  width: 90%;
+  max-width: 50rem;
+  margin: 1.25rem auto;
+  min-height: 40.625rem;
+  margin-top: 9.375rem;
+  color: #000;
+}
+
+.wrapper {
+  position: fixed;
+}
+
+.box div {
+  position: fixed;
+  width: 3.75rem;
+  height: 3.75rem;
+  background-color: transparent;
+  border: 0.375rem solid rgba(255, 255, 255, .6);
+  border-radius: 50%;
+  z-index: -10;
+}
+
+.box div:nth-child(1) {
+  top: 12%;
+  left: 42%;
+  animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(2) {
+  top: 70%;
+  left: 50%;
+  animation: animate 7s linear infinite;
+}
+
+.box div:nth-child(3) {
+  top: 17%;
+  left: 6%;
+  animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(4) {
+  top: 20%;
+  left: 60%;
+  animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(5) {
+  top: 67%;
+  left: 10%;
+  animation: animate 6s linear infinite;
+}
+
+.box div:nth-child(6) {
+  top: 80%;
+  left: 70%;
+  animation: animate 12s linear infinite;
+}
+
+.box div:nth-child(7) {
+  top: 60%;
+  left: 80%;
+  animation: animate 15s linear infinite;
+}
+
+.box div:nth-child(8) {
+  top: 32%;
+  left: 25%;
+  animation: animate 16s linear infinite;
+}
+
+.box div:nth-child(9) {
+  top: 90%;
+  left: 25%;
+  animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(10) {
+  top: 20%;
+  left: 80%;
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: scale(0) translateY(0) rotate(0);
+    opacity: .8;
+  }
+
+  100% {
+    transform: scale(1.3) translateY(-5.625rem) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Tambahkan animasi klik */
+.click-effect {
+  position: fixed;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  animation: click-animation 0.3s ease-out forwards;
+}
+
+/* Animasi menghilang */
+@keyframes click-animation {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 85%;
+  }
+
+  #envelope {
+    width: 9rem;
+    height: 6.1875rem;
+    top: 8.125rem;
+  }
+
+  .flap {
+    border-left: 4.5rem solid transparent;
+    border-right: 4.5rem solid transparent;
+    border-bottom: 3.09375rem solid transparent;
+    border-top: 3.09375rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 4.5rem solid var(--color-env);
+    border-right: 4.5rem solid var(--color-env);
+    border-bottom: 3.09375rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-3.09375rem) rotate(-2deg);
+  }
+
+  .stiker img {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  .cover p {
+    font-size: 1rem;
+  }
+
+  .awalan {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  #envelope {
+    width: 8rem;
+    height: 5.5rem;
+    top: 6.25rem;
+  }
+
+  .flap {
+    border-left: 4rem solid transparent;
+    border-right: 4rem solid transparent;
+    border-bottom: 2.75rem solid transparent;
+    border-top: 2.75rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 4rem solid var(--color-env);
+    border-right: 4rem solid var(--color-env);
+    border-bottom: 2.75rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-2.75rem) rotate(-2deg);
+  }
+
+  .message p {
+    font-size: 1em;
+  }
+
+  .envlope-wrapper {
+    height: 9.375rem;
+    margin-top: 1.875rem;
+  }
+
+  .reset {
+    margin-top: 3.75rem;
+  }
+
+  .reset button {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.875rem;
+  }
+
+  .stiker {
+    margin-top: -3.125rem;
+  }
+
+  .stiker img {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .container {
+    width: 90%;
+    min-height: 5rem;
+    max-height: 70.5rem;
+    padding: 0.625rem 1rem;
+  }
+
+  .titleC {
+    font-size: 1rem !important;
+  }
+
+  .messageC {
+    font-size: 0.9rem;
+  }
+
+  .fontAlt {
+    font-size: 1.1rem;
+  }
+
+  #scontainer {
+    min-height: 25rem;
+    margin-top: 5rem;
+  }
+
+  .box div {
+    width: 2.8125rem;
+    height: 2.8125rem;
+    border-width: 0.25rem;
+  }
+
+}
+
+/* --- KALOKITA SECTION STYLES (Merged) --- */
+
+:root {
+  --warna-bg: rgba(0, 0, 0, .5);
+  --warna-teks: #fff;
+  --warna-bingkai: #fff;
+  --bingkai: 8px;
+  --bingkai-kiri: 2px solid var(--warna-bingkai);
+  --bingkai-kanan: 2px solid var(--warna-bingkai);
+  --gaya-font: 'Quicksand', sans-serif;
+  --gaya-font2: 'Dancing Script', sans-serif;
+}
+
+@keyframes fanim {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  25% {
+    background-position: 100% 100%;
+  }
+
+  50% {
+    background-position: 0% 100%;
+  }
+
+  75% {
+    background-position: 50% 50%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes jj {
+  0% {
+    transform: scale(1.1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes rts {
+  from {
+    transform: scale(.1);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes rto {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes aniopa {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(.75);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rtf {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rt {
+  from {
+    transform: scale(.9);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes kont {
+  0% {
+    left: -1px;
+    top: -3px;
+  }
+
+  50% {
+    left: 1px;
+    top: 3px;
+  }
+
+  100% {
+    left: -1px;
+    top: -3px;
+  }
+}
+
+blockquote {
+  position: relative;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  width: 90%;
+  max-width: 40rem;
+  min-height: 5.25rem;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: var(--sp-1) solid white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-light);
+  transform: scale(0.1);
+  transition: all var(--anim-slow) ease;
+  color: #fff;
+  line-height: 1.3em;
+  margin: auto;
+  padding: var(--sp-4) var(--sp-5);
+  box-sizing: border-box;
+}
+
+blockquote p {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45em;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+  transition: all 0.5s ease;
+  text-align: center;
+}
+
+#kalimat6ngetik,
+.kiri {
+  text-align: left !important
+}
+
+blockquote p i {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+blockquote p b.alt {
+  font-size: 17px;
+}
+
+blockquote p b.merah {
+  color: red
+}
+
+blockquote p b.kuning {
+  color: yellow
+}
+
+blockquote p b.putih {
+  padding-left: 3px;
+  padding-right: 3px;
+  background: white;
+}
+
+blockquote p b.garismerah {
+  font-weight: 700;
+  border-bottom: 2px solid red
+}
+
+blockquote p b.gariskuning {
+  font-weight: 700;
+  border-bottom: 2px solid yellow
+}
+
+blockquote p:not(#opsL, #kalimat) {
+  display: none;
+}
+
+blockquote p:not(#kalimat6ngetik) {
+  text-align: center;
+}
+
+blockquote>#opsL {
+  margin-right: 0px;
+  text-align: right !important;
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 0;
+  margin-top: 24px;
+  color: white;
+  opacity: 0;
+  transition: all .2s ease;
+}
+
+@keyframes leaves {
+  0% {
+    transform: scale(1.0);
+  }
+
+  100% {
+    transform: scale(.85);
+  }
+}
+
+#loveIn {
+  animation: leaves .7s ease-in-out infinite alternate;
+  -webkit-animation: leaves 1s ease-in-out infinite alternate;
+}
+
+.lovein {
+  background: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  transition: all .3s ease;
+}
+
+.lovein:hover {
+  cursor: pointer
+}
+
+.lovein svg {
+  stroke: #ff0000;
+  stroke-width: 1.3;
+  fill: none;
+  width: 35px;
+  height: 35px
+}
+
+#Tombol,
+#Tombol2,
+#TombolWA {
+  position: relative;
+  opacity: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: left;
+  list-style: none;
+  transition: all .8s ease;
+  justify-content: center;
+}
+
+#Tombol a,
+#Tombol2 a,
+#TombolWA a {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin: 5px;
+  transition: all .2s ease;
+  padding: 8px 12px;
+  outline: 0;
+  border: 1px solid white;
+  border-radius: 8px;
+  line-height: 1.2;
+  background: rgba(0, 0, 0, .4);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow: rgba(255, 255, 255, 0.15) 0px 7px 29px 0px;
+  z-index: 1;
+}
+
+#Content {
+  animation-name: none;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+#Content>* {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.kumpulanstiker>img {
+  display: none;
+  background: rgba(255, 255, 255, .7);
+  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
+  padding: 8px;
+  width: 70px;
+  height: 70px;
+  margin: 5px 0;
+}
+
+#fotostiker {
+  opacity: .1;
+  transition: all 1.2s ease;
+  transform: scale(.1);
+}
+
+.halo {
+  font-size: 17px !important;
+  position: relative;
+  margin: 15px 0 0 0
+}
+
+.halo.sty2 {
+  align-items: center !important;
+  text-align: left !important;
+  font-size: 14px !important;
+  font-weight: 400;
+}
+
+.halo.sty3 {
+  position: absolute !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  margin: 30px 20px !important;
+}
+
+#kalbawah {
+  position: absolute;
+  opacity: 0;
+  transform: scale(.3);
+  margin: 8px 0;
+  font-family: var(--gaya-font2);
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, .8);
+  transition: all .5s ease;
+}
+
+#tanggal {
+  position: absolute;
+  opacity: 0;
+  transform: scale(.3);
+  transition: all .5s ease;
+}
+
+#fotolove img {
+  transition: all .5s ease;
+  width: 75px;
+  height: 75px;
+  padding: 0;
+  background: none
+}
+
+#ket,
+#kot,
+#ketgeser,
+.halo {
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, .8);
+  font-size: 17px;
+  font-weight: 700;
+  color: white
+}
+
+#ket,
+#kot {
+  transition: all .7s ease;
+  margin-top: 20px !important;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: .8
+}
+
+#kot a {
+  font-weight: 700;
+  color: yellow
+}
+
+.swal2-modal>* {
+  color: white
+}
+
+.swal2-title {
+  line-height: 1.3em;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px 30px 0 30px;
+}
+
+.swal2-container.swal2-backdrop-show {
+  background: rgba(0, 0, 0, .5);
+  z-index: 99999 !important;
+}
+
+.swal2-timer-progress-bar-container>* {
+  opacity: .7;
+  background: #00B6FF;
+  margin: 0 2px
+}
+
+.swal2-modal {
+  box-shadow: rgba(255, 255, 255, 0.3) 0px 7px 29px 0px;
+  background: rgba(0, 0, 0, .9);
+  max-width: 320px;
+  border-right: var(--bingkai-kanan);
+  border-left: var(--bingkai-kiri);
+  border-radius: 4px;
+  top: -50px;
+}
+
+.fa-heart {
+  opacity: .2;
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  animation: heartMove linear 1;
+  top: -10vh;
+  z-index: 0;
+}
+
+@keyframes heartMove {
+  0% {
+    transform: translateY(-10vh);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.sembunyi,
+#kado2,
+#kado3 {
+  display: none !important
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - ALL DEVICE BREAKPOINTS
+   ============================================ */
+
+/* ===== LARGE DESKTOP (1200px and above) ===== */
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 18px;
+  }
+
+  #envelope {
+    width: 12rem;
+    height: 8.25rem;
+    top: 12rem;
+  }
+
+  .flap {
+    border-left: 6rem solid transparent;
+    border-right: 6rem solid transparent;
+    border-bottom: 4.125rem solid transparent;
+    border-top: 4.125rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 6rem solid var(--color-env);
+    border-right: 6rem solid var(--color-env);
+    border-bottom: 4.125rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-4.125rem) rotate(-2deg);
+  }
+
+  .container {
+    max-width: 45rem;
+    padding: 1.5rem 2rem;
+  }
+
+  blockquote {
+    max-width: 450px;
+    padding: 25px 20px 15px 20px;
+  }
+
+  blockquote p {
+    font-size: 17px;
+  }
+
+  .stiker img {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 110px;
+    height: 110px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+
+  .envlope-wrapper {
+    height: 15rem;
+    margin-top: 4rem;
+  }
+
+  /* Kalokita Section - Large Desktop */
+  #Content {
+    padding: 2rem;
+  }
+
+  .kumpulanstiker {
+    margin-bottom: 1.5rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 120px;
+    height: 120px;
+    padding: 12px;
+  }
+
+  blockquote {
+    max-width: 480px;
+    padding: 28px 24px 16px 24px;
+  }
+
+  blockquote p {
+    font-size: 18px;
+    line-height: 1.5em;
+  }
+
+  blockquote p b.alt {
+    font-size: 20px;
+  }
+
+  #Tombol,
+  #Tombol2 {
+    margin-top: 1rem;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 16px;
+    padding: 14px 20px;
+    margin: 12px;
+  }
+}
+
+/* ===== TABLET LANDSCAPE (1024px - 1199px) ===== */
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+  html {
+    font-size: 16px;
+  }
+
+  #envelope {
+    width: 11rem;
+    height: 7.5625rem;
+    top: 10rem;
+  }
+
+  .flap {
+    border-left: 5.5rem solid transparent;
+    border-right: 5.5rem solid transparent;
+    border-bottom: 3.78125rem solid transparent;
+    border-top: 3.78125rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 5.5rem solid var(--color-env);
+    border-right: 5.5rem solid var(--color-env);
+    border-bottom: 3.78125rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-3.78125rem) rotate(-2deg);
+  }
+
+  .container {
+    max-width: 42rem;
+  }
+
+  blockquote {
+    max-width: 420px;
+  }
+
+  .stiker img {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  /* Kalokita Section - Tablet Landscape */
+  #Content {
+    padding: 1.5rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+  }
+
+  blockquote {
+    max-width: 440px;
+    padding: 24px 20px 14px 20px;
+  }
+
+  blockquote p {
+    font-size: 16px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  .envlope-wrapper {
+    height: 14rem;
+    margin-top: 3.5rem;
+  }
+}
+
+/* ===== TABLET PORTRAIT (768px - 1023px) - ENHANCED ===== */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    width: 80%;
+    max-width: 38rem;
+  }
+
+  #envelope {
+    width: 9.5rem;
+    height: 6.53125rem;
+    top: 9rem;
+  }
+
+  .flap {
+    border-left: 4.75rem solid transparent;
+    border-right: 4.75rem solid transparent;
+    border-bottom: 3.265625rem solid transparent;
+    border-top: 3.265625rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 4.75rem solid var(--color-env);
+    border-right: 4.75rem solid var(--color-env);
+    border-bottom: 3.265625rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-3.265625rem) rotate(-2deg);
+  }
+
+  .stiker img {
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+
+  blockquote {
+    width: 80%;
+    max-width: 380px;
+    padding: 18px 14px 10px 14px;
+  }
+
+  blockquote p {
+    font-size: 14px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .kumpulanstiker>img {
+    width: 85px;
+    height: 85px;
+  }
+
+  .envlope-wrapper {
+    height: 12rem;
+    margin-top: 3rem;
+  }
+
+  #scontainer {
+    min-height: 35rem;
+    margin-top: 7rem;
+  }
+
+  /* Kalokita Section - Tablet Portrait */
+  #Content {
+    padding: 1.25rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 90px;
+    height: 90px;
+    padding: 9px;
+  }
+
+  blockquote {
+    width: 82%;
+    max-width: 400px;
+    padding: 20px 16px 12px 16px;
+  }
+
+  blockquote p {
+    font-size: 15px;
+    line-height: 1.45em;
+  }
+
+  blockquote p b.alt {
+    font-size: 17px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 13px;
+    padding: 10px 14px;
+    margin: 8px;
+  }
+}
+
+/* ===== MOBILE LARGE (481px - 767px) ===== */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+
+  .cover p {
+    font-size: 1.1rem;
+  }
+
+  .awalan {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  #envelope {
+    width: 8.5rem;
+    height: 5.84375rem;
+    top: 7rem;
+  }
+
+  .flap {
+    border-left: 4.25rem solid transparent;
+    border-right: 4.25rem solid transparent;
+    border-bottom: 2.921875rem solid transparent;
+    border-top: 2.921875rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 4.25rem solid var(--color-env);
+    border-right: 4.25rem solid var(--color-env);
+    border-bottom: 2.921875rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-2.921875rem) rotate(-2deg);
+  }
+
+  .container {
+    width: 88%;
+    padding: 0.875rem 1.25rem;
+  }
+
+  blockquote {
+    width: 85%;
+    max-width: 350px;
+    padding: 16px 12px 8px 12px;
+  }
+
+  blockquote p {
+    font-size: 13px;
+  }
+
+  .stiker img {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 11px;
+    padding: 8px 10px;
+    margin: 6px;
+  }
+
+  .envlope-wrapper {
+    height: 10.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .reset {
+    margin-top: 5rem;
+  }
+
+  #scontainer {
+    min-height: 30rem;
+    margin-top: 6rem;
+  }
+
+  .box div {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3rem;
+  }
+
+  /* Kalokita Section - Mobile Large */
+  #Content {
+    padding: 1rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 75px;
+    height: 75px;
+    padding: 8px;
+    margin: 6px 0;
+  }
+
+  blockquote {
+    width: 88%;
+    max-width: 340px;
+    padding: 16px 12px 10px 12px;
+  }
+
+  blockquote p {
+    font-size: 14px;
+    line-height: 1.4em;
+  }
+
+  blockquote p b.alt {
+    font-size: 16px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 12px;
+    padding: 9px 12px;
+    margin: 7px;
+  }
+
+  #penggantiBy,
+  #penggantiBn {
+    font-size: 11px;
+  }
+}
+
+/* ===== MOBILE STANDARD (376px - 480px) - ENHANCED ===== */
+@media screen and (min-width: 376px) and (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+
+  .cover p {
+    font-size: 1rem;
+  }
+
+  .awalan {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    max-width: 85%;
+  }
+
+  #envelope {
+    width: 7.5rem;
+    height: 5.15625rem;
+    top: 6rem;
+  }
+
+  .flap {
+    border-left: 3.75rem solid transparent;
+    border-right: 3.75rem solid transparent;
+    border-bottom: 2.578125rem solid transparent;
+    border-top: 2.578125rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 3.75rem solid var(--color-env);
+    border-right: 3.75rem solid var(--color-env);
+    border-bottom: 2.578125rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-2.578125rem) rotate(-2deg);
+  }
+
+  .message p {
+    font-size: 0.9em;
+  }
+
+  .container {
+    width: 90%;
+    min-height: 4.5rem;
+    max-height: 65vh;
+    padding: 0.625rem 1rem;
+  }
+
+  blockquote {
+    width: 88%;
+    max-width: 320px;
+    padding: 14px 10px 8px 10px;
+  }
+
+  blockquote p {
+    font-size: 12px;
+    line-height: 1.4em;
+  }
+
+  .stiker {
+    margin-top: -3rem;
+  }
+
+  .stiker img {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 70px;
+    height: 70px;
+    padding: 8px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 10px;
+    padding: 7px 9px;
+    margin: 5px;
+  }
+
+  .envlope-wrapper {
+    height: 9rem;
+    margin-top: 2rem;
+  }
+
+  .reset {
+    margin-top: 4rem;
+  }
+
+  .reset button {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .titleC {
+    font-size: 0.95rem !important;
+  }
+
+  .messageC {
+    font-size: 0.85rem;
+  }
+
+  .fontAlt {
+    font-size: 1.05rem;
+  }
+
+  #scontainer {
+    min-height: 22rem;
+    margin-top: 4.5rem;
+  }
+
+  .box div {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 0.25rem;
+  }
+
+  .lovein {
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+  }
+
+  .lovein svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Kalokita Section - Mobile Standard */
+  #Content {
+    padding: 0.75rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 65px;
+    height: 65px;
+    padding: 7px;
+    margin: 5px 0;
+  }
+
+  blockquote {
+    width: 90%;
+    max-width: 300px;
+    padding: 14px 10px 8px 10px;
+  }
+
+  blockquote p {
+    font-size: 12px;
+    line-height: 1.38em;
+  }
+
+  blockquote p b.alt {
+    font-size: 14px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 11px;
+    padding: 8px 10px;
+    margin: 5px;
+  }
+
+  #penggantiBy,
+  #penggantiBn {
+    font-size: 10px;
+  }
+
+  #stikerditolak {
+    width: 60px;
+    height: 60px;
+  }
+
+  #kataditolak {
+    font-size: 11px;
+  }
+}
+
+/* ===== MOBILE SMALL (320px - 375px) ===== */
+@media screen and (min-width: 320px) and (max-width: 375px) {
+  html {
+    font-size: 12px;
+  }
+
+  .cover p {
+    font-size: 0.95rem;
+  }
+
+  .awalan {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    max-width: 90%;
+  }
+
+  .awalan svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.7rem;
+  }
+
+  #envelope {
+    width: 6.5rem;
+    height: 4.46875rem;
+    top: 5rem;
+  }
+
+  .flap {
+    border-left: 3.25rem solid transparent;
+    border-right: 3.25rem solid transparent;
+    border-bottom: 2.234375rem solid transparent;
+    border-top: 2.234375rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 3.25rem solid var(--color-env);
+    border-right: 3.25rem solid var(--color-env);
+    border-bottom: 2.234375rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-2.234375rem) rotate(-2deg);
+  }
+
+  .letter {
+    padding: 0.6rem;
+  }
+
+  .message p {
+    font-size: 0.8em;
+    margin: 0.4rem 0;
+  }
+
+  .letter-corner {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .container {
+    width: 92%;
+    min-height: 4rem;
+    max-height: 60vh;
+    padding: 0.5rem 0.8rem;
+    border-radius: 1.5rem;
+  }
+
+  .container h3 {
+    font-size: 0.9rem;
+  }
+
+  .container p {
+    font-size: 0.9rem;
+  }
+
+  blockquote {
+    width: 90%;
+    max-width: 280px;
+    padding: 12px 8px 6px 8px;
+    border-radius: 12px;
+  }
+
+  blockquote p {
+    font-size: 11px;
+    line-height: 1.35em;
+  }
+
+  blockquote p i {
+    font-size: 10px;
+  }
+
+  blockquote p b.alt {
+    font-size: 13px;
+  }
+
+  blockquote>#opsL {
+    font-size: 8px;
+    margin-top: 18px;
+  }
+
+  .stiker {
+    margin-top: -2.5rem;
+  }
+
+  .stiker img {
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0.4rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 60px;
+    height: 60px;
+    padding: 6px;
+    margin: 5px 0;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 9px;
+    padding: 6px 8px;
+    margin: 4px;
+    border-radius: 6px;
+  }
+
+  .envlope-wrapper {
+    height: 7.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .reset {
+    margin-top: 3rem;
+  }
+
+  .reset button {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+    margin: 0.4rem;
+  }
+
+  .titleC {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.6rem;
+  }
+
+  .messageC {
+    font-size: 0.8rem;
+  }
+
+  .fontAlt {
+    font-size: 1rem;
+  }
+
+  #scontainer {
+    min-height: 18rem;
+    margin-top: 3.5rem;
+  }
+
+  .box div {
+    width: 2rem;
+    height: 2rem;
+    border-width: 0.2rem;
+  }
+
+  .lovein {
+    width: 30px;
+    height: 30px;
+    padding: 6px;
+    font-size: 24px;
+  }
+
+  .lovein svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .halo {
+    font-size: 14px !important;
+    margin: 10px 0 0 0;
+  }
+
+  .halo.sty2 {
+    font-size: 12px !important;
+  }
+
+  #kalbawah {
+    font-size: 16px;
+  }
+
+  #fotolove img {
+    width: 60px;
+    height: 60px;
+  }
+
+  #ket,
+  #kot {
+    font-size: 10px;
+    margin-top: 15px !important;
+  }
+
+  .swal2-title {
+    font-size: 15px;
+    padding: 12px 20px 0 20px;
+  }
+
+  .swal2-modal {
+    max-width: 280px;
+  }
+
+  .continue-button {
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+
+  /* Kalokita Section - Mobile Small */
+  #Content {
+    padding: 0.5rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 55px;
+    height: 55px;
+    padding: 5px;
+    margin: 4px 0;
+  }
+
+  blockquote {
+    width: 92%;
+    max-width: 260px;
+    padding: 12px 8px 6px 8px;
+  }
+
+  blockquote p {
+    font-size: 11px;
+    line-height: 1.35em;
+  }
+
+  blockquote p b.alt {
+    font-size: 13px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 10px;
+    padding: 7px 8px;
+    margin: 4px;
+  }
+
+  #penggantiBy,
+  #penggantiBn {
+    font-size: 9px;
+  }
+
+  #stikerditolak {
+    width: 50px;
+    height: 50px;
+  }
+
+  #kataditolak {
+    font-size: 10px;
+  }
+}
+
+/* ===== EXTRA SMALL MOBILE (<320px) ===== */
+@media screen and (max-width: 319px) {
+  html {
+    font-size: 11px;
+  }
+
+  .cover p {
+    font-size: 0.9rem;
+  }
+
+  .awalan {
+    padding: 0.4rem;
+    font-size: 0.7rem;
+    max-width: 95%;
+  }
+
+  .awalan svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  #envelope {
+    width: 5.5rem;
+    height: 3.78125rem;
+    top: 4rem;
+  }
+
+  .flap {
+    border-left: 2.75rem solid transparent;
+    border-right: 2.75rem solid transparent;
+    border-bottom: 1.890625rem solid transparent;
+    border-top: 1.890625rem solid var(--color-flap);
+  }
+
+  .pocket {
+    border-left: 2.75rem solid var(--color-env);
+    border-right: 2.75rem solid var(--color-env);
+    border-bottom: 1.890625rem solid var(--color-env2);
+  }
+
+  .open .letter {
+    transform: translateY(-1.890625rem) rotate(-2deg);
+  }
+
+  .letter {
+    padding: 0.4rem;
+  }
+
+  .message p {
+    font-size: 0.7em;
+    margin: 0.3rem 0;
+  }
+
+  .container {
+    width: 95%;
+    min-height: 3.5rem;
+    max-height: 55vh;
+    padding: 0.4rem 0.6rem;
+    border-radius: 1.25rem;
+  }
+
+  blockquote {
+    width: 92%;
+    max-width: 250px;
+    padding: 10px 6px 5px 6px;
+    border-radius: 10px;
+  }
+
+  blockquote p {
+    font-size: 10px;
+    line-height: 1.3em;
+  }
+
+  .stiker img {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.3rem;
+  }
+
+  .kumpulanstiker>img {
+    width: 45px;
+    height: 45px;
+    padding: 4px;
+  }
+
+  /* Kalokita Section - Extra Small */
+  #Content {
+    padding: 0.4rem;
+  }
+
+  blockquote {
+    width: 94%;
+    max-width: 230px;
+    padding: 10px 6px 5px 6px;
+  }
+
+  blockquote p {
+    font-size: 10px;
+    line-height: 1.3em;
+  }
+
+  blockquote p b.alt {
+    font-size: 12px;
+  }
+
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a {
+    font-size: 8px;
+    padding: 5px 6px;
+    margin: 3px;
+  }
+
+  #penggantiBy,
+  #penggantiBn {
+    font-size: 8px;
+  }
+
+  #stikerditolak {
+    width: 40px;
+    height: 40px;
+  }
+
+  #kataditolak {
+    font-size: 9px;
+  }
+
+  .envlope-wrapper {
+    height: 6rem;
+    margin-top: 1rem;
+  }
+
+  .reset {
+    margin-top: 2.5rem;
+  }
+
+  .reset button {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .box div {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.15rem;
+  }
+
+  .lovein {
+    width: 26px;
+    height: 26px;
+    padding: 5px;
+  }
+
+  .lovein svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ===== LANDSCAPE ORIENTATION FIXES ===== */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .overlay {
+    padding: 0.5rem;
+  }
+
+  #envelope {
+    top: 2rem;
+  }
+
+  .envlope-wrapper {
+    height: auto;
+    margin-top: 1rem;
+  }
+
+  .reset {
+    margin-top: 2rem;
+  }
+
+  .stiker {
+    margin-top: -1.5rem;
+  }
+
+  .container {
+    max-height: 70vh;
+  }
+
+  #Content {
+    height: auto;
+    min-height: 100vh;
+    padding: 1rem 0;
+  }
+
+  blockquote {
+    margin: 10px auto;
+  }
+
+  #scontainer {
+    min-height: auto;
+    margin-top: 1rem;
+  }
+}
+
+/* ===== HIGH DPI / RETINA DISPLAY ===== */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
+  .stiker img,
+  .kumpulanstiker>img,
+  #fotolove img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+
+  .reset button,
+  #Tombol a,
+  #Tombol2 a,
+  #TombolWA a,
+  .continue-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  #envelope {
+    cursor: pointer;
+  }
+}
+
+/* ===== REDUCED MOTION PREFERENCE ===== */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .envlope-wrapper {
+    animation: none;
+  }
+
+  .heart,
+  .sparkle {
+    animation: none;
+  }
+}
